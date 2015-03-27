@@ -3,7 +3,7 @@ TreeViewFilterView    = require './tree-view-filter-view'
 {CompositeDisposable} = require 'atom'
 
 module.exports = TreeViewFilter =
-    treeViewFilterView: null
+    view: null
     subscriptions: null
 
     activate: (state) ->
@@ -12,51 +12,72 @@ module.exports = TreeViewFilter =
         
         requirePackages('tree-view').then ([treeView]) =>
             
-            console.log 'got tree-view package'
+            # console.log 'got tree-view package'
             
             @subscriptions = new CompositeDisposable
             
-            @treeViewFilterView = new TreeViewFilterView(treeView) #(state.treeViewFilterState, treeView)
+            @tree = treeView
+            @view = new TreeViewFilterView(@tree) #(state.treeViewFilterState, treeView)
 
-            console.log 'tree-view-filter', @treeViewFilterView
+            # console.log 'tree-view-filter', @view
 
-            if treeView.treeView
-                console.log 'treeview visible -> show'
-                @treeViewFilterView.show()
-            else
-                console.log 'treeview not visible!'
+            @subscriptions.add atom.commands.add @view.editor.element, 'core:confirm': => @editorConfirmed()
+            @subscriptions.add atom.commands.add @view.editor.element, 'core:cancel': => @editorCanceled()
+
+            # hide or show the filter editor if the tree view is toggled
 
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view:toggle', =>
-                console.log 'tree-view:toggle'
-                if treeView.treeView?.is(':visible')
-                    @treeViewFilterView.show()
+                console.log 'tree-view:toggle', @tree.treeView?.is(':visible')
+                if @tree.treeView?.is(':visible')
+                    @view.hide()
                 else
-                    @treeViewFilterView.hide()
+                    @view.show()
 
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view:show', =>
                 console.log 'tree-view:show'
-                @treeViewFilterView.show()
+                @view.show()
 
+            @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view-filter:showAndFocus': => @showAndFocus()
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view-filter:toggle': => @toggle()
             
+            # show and focus the filter editor if the tree-view is visible
+            
+            if @tree.treeView
+                console.log 'treeview visible -> show and focus'
+                @showAndFocus()
+            else
+                console.log 'treeview not visible!'
+
             console.log 'end tree-view package'
 
-    # createViews: ->
-    #     return if @treeViewFilterView?
-    #     @treeViewFilterView = new TreeViewFilterView()
+    editorConfirmed: ->
+        console.log 'editor confirmed'
+        @setFilterPattern @view.editor.getText()
+        console.log @tree
+        @tree?.treeView?.show?()
+
+    editorCanceled: ->
+        console.log 'canceled'
+        
+    setFilterPattern: (patternText) ->
+        console.log 'setFilterPattern: ', patternText
 
     deactivate: ->
         console.log 'deactivate'
         @subscriptions.dispose()
-        @treeViewFilterView.destroy()
+        @view.destroy()
 
     serialize: ->
         console.log 'serialize'
-        treeViewFilterState: @treeViewFilterView.serialize()
+        treeViewFilterState: @view.serialize()
+
+    showAndFocus: ->
+        @view.show()
+        @view.focus()
 
     toggle: ->
-        console.log 'toggle'
-        if @treeViewFilterView.isVisible()
-            @treeViewFilterView.hide()
+        console.log 'toggle', @view.isVisible()
+        if @view.isVisible()
+            @view.hide()
         else
-            @treeViewFilterView.show()
+            @showAndFocus()

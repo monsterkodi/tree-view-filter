@@ -4,9 +4,9 @@
   "version": "0.0.1",
   "description": "limits the display of files in the tree-view to those that match a certain pattern",
   "activationCommands": {
-    "atom-workspace": "tree-view-filter:toggle"
+    "atom-workspace": "tree-view-filter:showAndFocus"
   },
-  "repository": "https://github.com/atom/tree-view-filter",
+  "repository": "https://github.com/monsterkodi/tree-view-filter",
   "license": "MIT",
   "engines": {
     "atom": ">=0.174.0 <2.0.0"
