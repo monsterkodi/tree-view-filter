@@ -1,5 +1,13 @@
 {View, TextEditorView} = require 'atom-space-pen-views'
 
+###
+000   000  000  00000000  000   000
+000   000  000  000       000 0 000
+ 000 000   000  0000000   000000000
+   000     000  000       000   000
+    0      000  00000000  00     00
+###
+
 module.exports =
 class TreeViewFilterView extends View
     
