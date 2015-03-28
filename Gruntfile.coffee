@@ -29,7 +29,7 @@ module.exports = (grunt) ->
             commit:
                 command: 'git add . && git commit -m "multiple filters"'
             push:
-                push:    'git push'
+                command: 'git push'
             
 
     grunt.loadNpmTasks 'grunt-contrib-watch'

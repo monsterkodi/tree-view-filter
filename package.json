@@ -1,7 +1,7 @@
 {
   "name": "tree-view-filter",
   "main": "./lib/tree-view-filter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "limits the display of files in the tree-view to those that match a certain pattern",
   "activationCommands": {
     "atom-workspace": "tree-view-filter:showAndFocus"
