@@ -27,7 +27,7 @@ module.exports = (grunt) ->
 
         shell:
             commit:
-                command: 'git add . && git commit -m "screencast"'
+                command: 'git add . && git commit -m "prepublish"'
             push:
                 command: 'git push'
             

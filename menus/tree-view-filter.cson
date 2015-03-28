@@ -18,8 +18,12 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'tree-view-filter'
+      'label': 'Tree View Filter'
       'submenu': [
+        {
+          'label': 'Activate'
+          'command': 'tree-view-filter:activate'
+        },
         {
           'label': 'Toggle'
           'command': 'tree-view-filter:toggle'
