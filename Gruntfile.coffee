@@ -24,12 +24,12 @@ module.exports = (grunt) ->
 
         open:
           atom:
-            path: 'https://www.npmjs.com/package/grunt-pepper'
+            path: 'https://atom.io/packages/tree-view-filter'
             app: 'Firefox'
 
         shell:
             commit:
-                command: 'git add . && git commit -m "bumpup removed"'
+                command: 'git add . && git commit -m "`head -n 1 CHANGELOG.md`"'
             push:
                 command: 'git push'
             apm:
