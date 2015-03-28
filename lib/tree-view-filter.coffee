@@ -14,6 +14,11 @@ minimatch             = require 'minimatch'
 module.exports = TreeViewFilter =
     view: null
     subscriptions: null
+    config:
+        liveUpdate:
+            type: 'boolean'
+            default: false
+            title: 'Live Update: filter the tree view while entering patterns'
 
     activate: (state) ->
                 
@@ -78,8 +83,10 @@ module.exports = TreeViewFilter =
     editorConfirmed: -> @setFilterPattern @view.editor.getText()
     editorCanceled:  -> @view.editor.setText ""; @clearFilter()
     editorChanged:   -> 
-        # @editorConfirmed()
-        @showClearButton @view.editor.getText().trim().length
+        if atom.config.get('tree-view-filter.liveUpdate')
+            @editorConfirmed()
+        else
+            @showClearButton @view.editor.getText().trim().length
             
     editorCleared:   -> 
         if @view?

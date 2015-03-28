@@ -1,3 +1,4 @@
+* live update option
 * clear on escape key
 * clear button
 * remember visibility state

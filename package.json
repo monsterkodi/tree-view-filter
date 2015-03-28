@@ -2,7 +2,7 @@
   "name": "tree-view-filter",
   "main": "./lib/tree-view-filter",
   "version": "0.2.8",
-  "description": "Limits files in the tree-view to those matching certain pattern(s)",
+  "description": "Limits files in the tree view to those matching certain patterns",
   "repository": "https://github.com/monsterkodi/tree-view-filter",
   "license": "MIT",
   "engines": {
