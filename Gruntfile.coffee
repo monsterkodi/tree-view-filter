@@ -6,26 +6,26 @@ module.exports = (grunt) ->
 
         salt:
             options:
-                textMarker : '#!'
-                dryrun     : false
-                verbose    : false
-                refresh    : false
+                textMarker: '#!'
+                dryrun:     false
+                verbose:    false
+                refresh:    false
             coffee:
                 files:
-                    'asciiText'   : ['./lib/**/*.coffee']
+                    'asciiText': ['./lib/**/*.coffee']
 
         watch:
-          scripts:
-            files: ['lib/*.coffee']
-            tasks: ['salt']
-            options:
+          scripts: 
+            files:   ['lib/*.coffee']
+            tasks:   ['salt']
+            options: 
                 spawn:     true
                 interrupt: false
 
         open:
           atom:
             path: 'https://atom.io/packages/tree-view-filter'
-            app: 'Firefox'
+            app:  'Firefox'
 
         shell:
             commit:
@@ -40,6 +40,6 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-shell'
     grunt.loadNpmTasks 'grunt-open'
 
-    grunt.registerTask 'default',   [ 'salt' ]
-    grunt.registerTask 'push',      [ 'shell:commit', 'shell:push' ]
-    grunt.registerTask 'publish',   [ 'push', 'shell:apm', 'open:atom' ]
+    grunt.registerTask 'default', [ 'salt' ]
+    grunt.registerTask 'push'   , [ 'shell:commit', 'shell:push' ]
+    grunt.registerTask 'publish', [ 'push'        , 'shell:apm'   , 'open:atom' ]

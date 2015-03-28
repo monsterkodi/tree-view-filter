@@ -27,7 +27,7 @@ module.exports = TreeViewFilter =
             @view = new TreeViewFilterView(@tree) #(state.treeViewFilterState, treeView)
 
             @subscriptions.add atom.commands.add @view.editor.element, 'core:confirm': => @editorConfirmed()
-            @subscriptions.add atom.commands.add @view.editor.element, 'core:cancel': => @editorCanceled()
+            @subscriptions.add atom.commands.add @view.editor.element, 'core:cancel': @editorCanceled
 
             # hide or show the filter editor if the tree view is toggled
 
@@ -75,14 +75,9 @@ module.exports = TreeViewFilter =
             else
                 fileEntry.style.display = 'inherit'
 
-    clearFilter: -> @setFilterPatterns []
-
-    editorConfirmed: ->
-        @setFilterPattern @view.editor.getText()
-        # @tree?.treeView?.show?()
-
-    editorCanceled: ->
-        console.log 'canceled'
+    clearFilter:     -> @setFilterPatterns []
+    editorConfirmed: -> @setFilterPattern @view.editor.getText()
+    editorCanceled:  -> console.log 'canceled'
         
     deactivate: ->
         console.log 'deactivate'
