@@ -1,6 +1,6 @@
 # tree-view-filter package
 
-Filters the Atom tree-view to only display files that match certain pattern(s).
+Atom plugin which hides files in the tree-view that don't match the provided pattern(s).
 
 ![screencast](https://raw.githubusercontent.com/monsterkodi/tree-view-filter/master/screencast.gif)
 
