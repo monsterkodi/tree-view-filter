@@ -1,9 +1,29 @@
 // https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
 @import "ui-variables";
 
+@font-face {
+    font-family: 'Font Awesome';
+    font-weight: normal;
+    font-style: normal;
+    src: url(atom://tree-view-filter/node_modules/font-awesome/fonts/fontawesome-webfont.woff) format('woff');
+}
+
 .tree-view-filter {
     position: absolute;
     bottom: 0px;
     left: 0px;
     right: 0px;
+}
+
+.tree-view-filter-clear {
+    position: absolute;
+    right: 0px;
+    bottom: 1px;
+    border: 1px solid transparent;
+    width: 16px;
+}
+
+.tree-view-filter-clear-icon::before  {
+    font-family: 'Font Awesome';
+    content: '\f057'; // http://fontawesome.io/icon/times-circle/
 }

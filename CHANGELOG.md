@@ -1,3 +1,5 @@
+* clear button
+* remember visibility state
 * font-awesome
 * simple changelog
 * no focus on activation

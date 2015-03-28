@@ -16,30 +16,28 @@ module.exports = TreeViewFilter =
     subscriptions: null
 
     activate: (state) ->
-        
-        console.log 'activate'
-        
+                
         requirePackages('tree-view').then ([treeView]) =>
                         
             @subscriptions = new CompositeDisposable
             
             @tree = treeView
-            @view = new TreeViewFilterView(@tree) #(state.treeViewFilterState, treeView)
+            @view = new TreeViewFilterView(@tree)
 
             @subscriptions.add atom.commands.add @view.editor.element, 'core:confirm': => @editorConfirmed()
-            @subscriptions.add atom.commands.add @view.editor.element, 'core:cancel': @editorCanceled
+            @subscriptions.add atom.commands.add @view.editor.element, 'core:cancel':  => @editorCanceled()
+
+            @view.clear.addEventListener 'click', => @editorCleared()
 
             # hide or show the filter editor if the tree view is toggled
 
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view:toggle', =>
-                # console.log 'tree-view:toggle', @tree.treeView?.is(':visible')
                 if @tree.treeView?.is(':visible')
                     @view.hide()
                 else
                     @view.show()
 
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view:show', =>
-                # console.log 'tree-view:show'
                 @view.show()
 
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view-filter:show': => @show()
@@ -47,17 +45,14 @@ module.exports = TreeViewFilter =
             
             # show and focus the filter editor if the tree-view is visible
             
-            if @tree.treeView
-                # console.log 'treeview visible -> show and focus'
+            if @tree.treeView and state.treeViewFilterState?.visible
                 @view.show()
-
-            # console.log 'end tree-view package'
 
     setFilterPattern: (patternText) ->
         @setFilterPatterns (p for p in patternText.split(' ') when p? and p.length)
         
     setFilterPatterns: (patterns) ->
-        console.log 'setFilterPatterns: ', patterns, @tree.treeView.element     
+        # console.log 'setFilterPatterns: ', patterns, @tree.treeView.element     
         fileEntries = @tree.treeView.element.querySelectorAll '.file.entry.list-item'
         # dirEntries = @tree.treeView.element.querySelectorAll '.directory.entry'
         # console.log dirEntries, fileEntries            
@@ -78,14 +73,18 @@ module.exports = TreeViewFilter =
     clearFilter:     -> @setFilterPatterns []
     editorConfirmed: -> @setFilterPattern @view.editor.getText()
     editorCanceled:  -> console.log 'canceled'
+    editorCleared:   -> 
+        if @view?
+            @view.editor.setText ""
+            @clearFilter()
         
     deactivate: ->
-        console.log 'deactivate'
+        # console.log 'deactivate'
         @subscriptions.dispose()
         @view.destroy()
 
     serialize: ->
-        console.log 'serialize'
+        # console.log 'serialize'
         treeViewFilterState: @view.serialize()
 
     show: ->
@@ -93,7 +92,6 @@ module.exports = TreeViewFilter =
         @view.focus()
 
     toggle: ->
-        # console.log 'toggle', @view.isVisible()
         if @view.isVisible()
             @clearFilter()
             @view.hide()

@@ -2,7 +2,7 @@
 
 Atom plugin which hides files in the tree-view that don't match the provided pattern(s).
 
-![screencast](https://raw.githubusercontent.com/monsterkodi/tree-view-filter/master/screencast.gif)
+![screencast](https://raw.githubusercontent.com/monsterkodi/tree-view-filter/master/img/screencast.gif)
 
 ## usage
 
