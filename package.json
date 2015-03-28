@@ -1,7 +1,7 @@
 {
   "name": "tree-view-filter",
   "main": "./lib/tree-view-filter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "limits the display of files in the tree-view to those that match a certain pattern",
   "activationCommands": {
     "atom-workspace": "tree-view-filter:showAndFocus"
@@ -19,7 +19,8 @@
     "grunt": "^0.4.5",
     "grunt-bumpup": "^0.6.2",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-pepper": "^0.4.6",
+    "grunt-pepper": "^0.4.7",
+    "grunt-shell": "^1.1.2",
     "minimatch": "^2.0.4"
   }
 }
