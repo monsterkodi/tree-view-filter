@@ -2,7 +2,7 @@
 
 Filters the Atom tree-view to only display files that match a certain pattern.
 
-![screencast](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+![screencast](https://raw.githubusercontent.com/monsterkodi/tree-view-filter/master/screencast.gif)
 
 ## todo
 

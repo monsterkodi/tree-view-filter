@@ -27,7 +27,7 @@ module.exports = (grunt) ->
 
         shell:
             commit:
-                command: 'git add . && git commit -m "multiple filters"'
+                command: 'git add . && git commit -m "screencast"'
             push:
                 command: 'git push'
             
