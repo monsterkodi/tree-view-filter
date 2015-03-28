@@ -40,3 +40,5 @@ and the usual suspects
 This is my first Atom plugin, hacked together in an evening.  
 It probably won't break anything (e.g. delete all your code :)  
 but still: use at your own risk!
+
+[atom package](https://atom.io/packages/tree-view-filter)

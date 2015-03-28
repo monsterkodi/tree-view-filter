@@ -22,6 +22,11 @@ module.exports = (grunt) ->
                 spawn:     true
                 interrupt: false
 
+        open:
+          atom:
+            path: 'https://www.npmjs.com/package/grunt-pepper'
+            app: 'Firefox'
+
         shell:
             commit:
                 command: 'git add . && git commit -m "bumpup removed"'
@@ -29,12 +34,12 @@ module.exports = (grunt) ->
                 command: 'git push'
             apm:
                 command: 'apm publish patch'
-            
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-pepper'
     grunt.loadNpmTasks 'grunt-shell'
+    grunt.loadNpmTasks 'grunt-open'
 
     grunt.registerTask 'default',   [ 'salt' ]
     grunt.registerTask 'push',      [ 'shell:commit', 'shell:push' ]
-    grunt.registerTask 'publish',   [ 'push', 'shell:apm' ]
+    grunt.registerTask 'publish',   [ 'push', 'shell:apm', 'open:atom' ]
