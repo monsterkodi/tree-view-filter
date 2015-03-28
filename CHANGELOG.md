@@ -1,3 +1,4 @@
+* font-awesome
 * simple changelog
 * no focus on activation
 * clear filter on deactivation

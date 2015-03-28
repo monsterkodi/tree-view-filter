@@ -9,8 +9,9 @@
     "atom": ">=0.174.0 <2.0.0"
   },
   "dependencies": {
-    "atom-utils": ">=0.5.0",
     "atom-space-pen-views": "^2.0.4",
+    "atom-utils": ">=0.5.0",
+    "font-awesome": "^4.3.0",
     "minimatch": "^2.0.4"
   },
   "devDependencies": {
