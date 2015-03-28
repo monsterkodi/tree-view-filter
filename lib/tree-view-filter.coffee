@@ -28,6 +28,7 @@ module.exports = TreeViewFilter =
             @subscriptions.add atom.commands.add @view.editor.element, 'core:cancel':  => @editorCanceled()
 
             @view.clear.addEventListener 'click', => @editorCleared()
+            @view.editor.getModel().onDidChange => @editorChanged()
 
             # hide or show the filter editor if the tree view is toggled
 
@@ -52,10 +53,9 @@ module.exports = TreeViewFilter =
         @setFilterPatterns (p for p in patternText.split(' ') when p? and p.length)
         
     setFilterPatterns: (patterns) ->
-        # console.log 'setFilterPatterns: ', patterns, @tree.treeView.element     
+
         fileEntries = @tree.treeView.element.querySelectorAll '.file.entry.list-item'
         # dirEntries = @tree.treeView.element.querySelectorAll '.directory.entry'
-        # console.log dirEntries, fileEntries            
         for fileEntry in fileEntries
 
             span = fileEntry.querySelector 'span.name'
@@ -69,10 +69,18 @@ module.exports = TreeViewFilter =
                 fileEntry.style.display = 'none'
             else
                 fileEntry.style.display = 'inherit'
+                
+        @showClearButton patterns.length > 0
+        
+    showClearButton: (visible) -> @view.clear.style.display = visible and 'inherit' or 'none'
 
     clearFilter:     -> @setFilterPatterns []
     editorConfirmed: -> @setFilterPattern @view.editor.getText()
-    editorCanceled:  -> console.log 'canceled'
+    editorCanceled:  -> @view.editor.setText ""; @clearFilter()
+    editorChanged:   -> 
+        # @editorConfirmed()
+        @showClearButton @view.editor.getText().trim().length
+            
     editorCleared:   -> 
         if @view?
             @view.editor.setText ""

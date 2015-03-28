@@ -1,3 +1,4 @@
+* clear on escape key
 * clear button
 * remember visibility state
 * font-awesome

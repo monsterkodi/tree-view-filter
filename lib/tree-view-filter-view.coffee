@@ -23,6 +23,7 @@ class TreeViewFilterView extends View
         @treeView = treeView
         super
         @clear = @element.querySelector '.tree-view-filter-clear'
+        @clear.style.display = 'none'
 
     focus: -> @editor.focus()
         

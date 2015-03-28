@@ -3,3 +3,6 @@
 
 'atom-workspace':
   'alt-cmd-shift-f': 'tree-view-filter:show'
+  
+'.tree-view-filter atom-text-editor[mini]':
+  'escape': 'core:cancel'
