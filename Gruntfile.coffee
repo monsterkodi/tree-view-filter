@@ -31,7 +31,7 @@ module.exports = (grunt) ->
             push:
                 command: 'git push'
             apm:
-                command: 'apm publish minor'
+                command: 'apm publish patch'
             
 
     grunt.loadNpmTasks 'grunt-contrib-watch'

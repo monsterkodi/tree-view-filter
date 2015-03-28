@@ -19,6 +19,11 @@ enter your pattern and press Enter/Return to confirm.
 
 Clear the pattern editor and press Enter/Return to restore the tree-view to it's unfiltered state.
 
+## known issues
+
+* The filter only sets the display style of the file entries to 'none'. 
+When navigating the tree-view with the keyboard, the invisible items still get focus.
+
 ## credits
 
 * screencast generated with [dergachev/screengif](https://github.com/dergachev/screengif)
