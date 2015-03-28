@@ -22,12 +22,9 @@ module.exports = (grunt) ->
                 spawn:     true
                 interrupt: false
 
-        bumpup:
-            file: 'package.json'
-
         shell:
             commit:
-                command: 'git add . && git commit -m "filter"'
+                command: 'git add . && git commit -m "bumpup removed"'
             push:
                 command: 'git push'
             apm:
@@ -35,10 +32,9 @@ module.exports = (grunt) ->
             
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
-    grunt.loadNpmTasks 'grunt-bumpup'
     grunt.loadNpmTasks 'grunt-pepper'
     grunt.loadNpmTasks 'grunt-shell'
 
     grunt.registerTask 'default',   [ 'salt' ]
     grunt.registerTask 'push',      [ 'shell:commit', 'shell:push' ]
-    grunt.registerTask 'publish',   [ 'bumpup',  'push', 'shell:apm' ]
+    grunt.registerTask 'publish',   [ 'push', 'shell:apm' ]
