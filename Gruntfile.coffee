@@ -30,6 +30,8 @@ module.exports = (grunt) ->
                 command: 'git add . && git commit -m "prepublish"'
             push:
                 command: 'git push'
+            apm:
+                command: 'apm publish minor'
             
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
@@ -38,4 +40,5 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-shell'
 
     grunt.registerTask 'default',   [ 'salt' ]
-    grunt.registerTask 'publish',   [ 'bumpup', 'shell:commit', 'shell:push' ]
+    grunt.registerTask 'push',      [ 'shell:commit', 'shell:push' ]
+    grunt.registerTask 'publish',   [ 'bumpup',  'push', 'shell:apm' ]
