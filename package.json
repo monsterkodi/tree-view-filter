@@ -17,6 +17,7 @@
     "grunt": "^0.4.5",
     "grunt-bumpup": "^0.6.2",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-open": "^0.2.3",
     "grunt-pepper": "^0.4.7",
     "grunt-shell": "^1.1.2"
   }

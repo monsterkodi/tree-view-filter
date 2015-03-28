@@ -54,9 +54,9 @@ module.exports = TreeViewFilter =
             # console.log 'end tree-view package'
 
     setFilterPattern: (patternText) ->
-        @setFilterPatters (p for p in patternText.split(' ') when p? and p.length)
+        @setFilterPatterns (p for p in patternText.split(' ') when p? and p.length)
         
-    setFilterPatters: (patterns) ->
+    setFilterPatterns: (patterns) ->
         console.log 'setFilterPatterns: ', patterns, @tree.treeView.element     
         fileEntries = @tree.treeView.element.querySelectorAll '.file.entry.list-item'
         # dirEntries = @tree.treeView.element.querySelectorAll '.directory.entry'
@@ -74,6 +74,8 @@ module.exports = TreeViewFilter =
                 fileEntry.style.display = 'none'
             else
                 fileEntry.style.display = 'inherit'
+
+    clearFilter: -> @setFilterPatterns []
 
     editorConfirmed: ->
         @setFilterPattern @view.editor.getText()
@@ -98,6 +100,7 @@ module.exports = TreeViewFilter =
     toggle: ->
         # console.log 'toggle', @view.isVisible()
         if @view.isVisible()
+            @clearFilter()
             @view.hide()
         else
             @show()

@@ -1,4 +1,8 @@
-## 0.2.3
+## 0.2.6
+* no focus on activation
+* clear filter on deactivation
+
+## 0.2.4
 * no focus on activation
 
 ## 0.0.3 - screencast
