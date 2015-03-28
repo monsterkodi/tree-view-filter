@@ -1,7 +1,7 @@
 {
   "name": "tree-view-filter",
   "main": "./lib/tree-view-filter",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "limits the display of files in the tree-view to those that match a certain pattern",
   "repository": "https://github.com/monsterkodi/tree-view-filter",
   "license": "MIT",
