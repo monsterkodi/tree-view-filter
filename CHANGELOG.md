@@ -1,3 +1,6 @@
+## 0.2.3
+* no focus on activation
+
 ## 0.0.3 - screencast
 * screen cast
 * credits

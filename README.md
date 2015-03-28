@@ -4,14 +4,6 @@ Filters the Atom tree-view to only display files that match certain pattern(s).
 
 ![screencast](https://raw.githubusercontent.com/monsterkodi/tree-view-filter/master/screencast.gif)
 
-## todo
-
-* simple (X) button to clear filter
-* nicer style (blend in with status bar)
-* update filter when directory is expanded
-* get esc/cancel to work
-* remember state
-
 ## usage
 
 Press `alt-cmd-shift-f` or invoke `Tree View Filter:Show` to focus the filter pattern editor, 
@@ -23,6 +15,14 @@ Clear the pattern editor and press Enter/Return to restore the tree-view to it's
 
 * The filter only sets the display style of the file entries to 'none'. 
 When navigating the tree-view with the keyboard, the invisible items still get focus.
+
+## todo
+
+* simple (X) button to clear filter
+* nicer style (blend in with status bar)
+* update filter when directory is expanded
+* get esc/cancel to work
+* remember state
 
 ## credits
 

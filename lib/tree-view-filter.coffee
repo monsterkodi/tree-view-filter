@@ -42,14 +42,14 @@ module.exports = TreeViewFilter =
                 # console.log 'tree-view:show'
                 @view.show()
 
-            @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view-filter:showAndFocus': => @showAndFocus()
+            @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view-filter:show': => @show()
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view-filter:toggle': => @toggle()
             
             # show and focus the filter editor if the tree-view is visible
             
             if @tree.treeView
                 # console.log 'treeview visible -> show and focus'
-                @showAndFocus()
+                @view.show()
 
             # console.log 'end tree-view package'
 
@@ -91,7 +91,7 @@ module.exports = TreeViewFilter =
         console.log 'serialize'
         treeViewFilterState: @view.serialize()
 
-    showAndFocus: ->
+    show: ->
         @view.show()
         @view.focus()
 
@@ -100,4 +100,4 @@ module.exports = TreeViewFilter =
         if @view.isVisible()
             @view.hide()
         else
-            @showAndFocus()
+            @show()

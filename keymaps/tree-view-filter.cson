@@ -2,4 +2,4 @@
 # https://atom.io/docs/latest/advanced/keymaps
 
 'atom-workspace':
-  'alt-cmd-shift-f': 'tree-view-filter:showAndFocus'
+  'alt-cmd-shift-f': 'tree-view-filter:show'
