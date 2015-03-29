@@ -28,6 +28,7 @@ module.exports = TreeViewFilter =
             
             @tree = treeView
             @view = new TreeViewFilterView(@tree)
+            @patterns = []
 
             @subscriptions.add atom.commands.add @view.editor.element, 'core:confirm': => @editorConfirmed()
             @subscriptions.add atom.commands.add @view.editor.element, 'core:cancel':  => @editorCanceled()
@@ -56,26 +57,20 @@ module.exports = TreeViewFilter =
 
     setFilterPattern: (patternText) ->
         @setFilterPatterns (p for p in patternText.split(' ') when p? and p.length)
-        
-    setFilterPatterns: (patterns) ->
-
-        fileEntries = @tree.treeView.element.querySelectorAll '.file.entry.list-item'
-        # dirEntries = @tree.treeView.element.querySelectorAll '.directory.entry'
-        for fileEntry in fileEntries
-
-            span = fileEntry.querySelector 'span.name'
-            fileName = span.getAttribute 'data-name'
-
-            matches = not patterns.length
-            for pattern in patterns
-                if minimatch(fileName, pattern)
-                    matches = true
-            if not matches
-                fileEntry.style.display = 'none'
-            else
-                fileEntry.style.display = 'inherit'
                 
-        @showClearButton patterns.length > 0
+    setFilterPatterns: (patterns) ->
+        @patterns = patterns
+        @treeViewService.reload()
+        @showClearButton @patterns.length > 0
+
+    isFileNameFiltered: (filePath) ->
+        if not @patterns?
+            return false
+        matches = not @patterns.length
+        for pattern in @patterns
+            if minimatch(filePath, pattern)
+                matches = true
+        not matches
         
     showClearButton: (visible) -> @view.clear.style.display = visible and 'inherit' or 'none'
 
@@ -112,3 +107,10 @@ module.exports = TreeViewFilter =
             @view.hide()
         else
             @show()
+
+    consumeTreeViewService: (treeViewService) ->
+        # console.log 'consume', @
+        @treeViewService = treeViewService
+        @treeViewService.addFileNameFilterFunction @isFileNameFiltered.bind(@)
+        
+        

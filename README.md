@@ -21,11 +21,9 @@ I am not sure yet if this can be resolved without changing the tree-view package
 
 ## todo
 
-* simple (X) button to clear filter
 * nicer style (blend in with status bar)
 * update filter when directory is expanded
-* get esc/cancel to work
-* remember state
+* specs
 
 ## credits
 
