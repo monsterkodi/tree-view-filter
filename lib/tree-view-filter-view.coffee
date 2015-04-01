@@ -41,7 +41,6 @@ class TreeViewFilterView extends View
             e.removeChild @element
             s = e.querySelector '.tree-view-scroller'
             s.style['padding-bottom'] = '0px'
-            s.removeChild @placeholder
         super
 
     serialize:  -> { visible: @isVisible() }
