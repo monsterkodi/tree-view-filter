@@ -18,7 +18,11 @@ module.exports = TreeViewFilter =
         liveUpdate:
             type: 'boolean'
             default: false
-            title: 'Live Update: filter the tree view while entering patterns'
+            title: 'Live Update: update the tree view while entering patterns'
+        globalFilter:
+            type: 'string'
+            default: ""
+            title: 'Global Filter: pattern that is used while the package is active'
 
     activate: (state) ->
                 
@@ -49,33 +53,46 @@ module.exports = TreeViewFilter =
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view-filter:show': => @show()
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view-filter:toggle': => @toggle()
             
-            # show and focus the filter editor if the tree-view is visible
+            @subscriptions.add atom.config.onDidChange 'tree-view-filter.globalFilter', => @updateGlobalFilter()
+
+            # show the filter editor if the tree-view is visible
             
             if @tree.treeView and state.treeViewFilterState?.visible
                 @view.show()
 
     setFilterPattern: (patternText) ->
         @setFilterPatterns (p for p in patternText.split(' ') when p? and p.length)
-        
+                
     setFilterPatterns: (patterns) ->
-
+        pats = patterns.concat @globalPatterns()
+        
+        @include = (p for p in pats when p[0] != '!')
+        @exclude = (p.substring(1) for p in pats when p[0] == '!')
+        
         fileEntries = @tree.treeView.element.querySelectorAll '.file.entry.list-item'
-        # dirEntries = @tree.treeView.element.querySelectorAll '.directory.entry'
         for fileEntry in fileEntries
 
             span = fileEntry.querySelector 'span.name'
-            fileName = span.getAttribute 'data-name'
+            fileName = span.getAttribute 'data-name'                
+            fileEntry.style.display = @isFileNameFiltered(fileName) and 'none' or 'inherit'
 
-            matches = not patterns.length
-            for pattern in patterns
-                if minimatch(fileName, pattern)
-                    matches = true
-            if not matches
-                fileEntry.style.display = 'none'
-            else
-                fileEntry.style.display = 'inherit'
-                
         @showClearButton patterns.length > 0
+
+    updateGlobalFilter: () -> @editorConfirmed()
+    globalPatterns: () -> (p for p in atom.config.get('tree-view-filter.globalFilter').split(' ') when p? and p.length)
+        
+    isFileNameFiltered: (filePath) ->
+        if @exclude?
+            for pattern in @exclude
+                if minimatch(filePath, pattern)
+                    return true
+        if not @include? or @include.length == 0
+            return false
+        matches = false
+        for pattern in @include
+            if minimatch(filePath, pattern)
+                matches = true
+        not matches
         
     showClearButton: (visible) -> @view.clear.style.display = visible and 'inherit' or 'none'
 
@@ -88,18 +105,17 @@ module.exports = TreeViewFilter =
         else
             @showClearButton @view.editor.getText().trim().length
             
-    editorCleared:   -> 
+    editorCleared: -> 
         if @view?
             @view.editor.setText ""
             @clearFilter()
         
     deactivate: ->
-        # console.log 'deactivate'
+        @clearFilter()
         @subscriptions.dispose()
         @view.destroy()
 
     serialize: ->
-        # console.log 'serialize'
         treeViewFilterState: @view.serialize()
 
     show: ->
@@ -112,3 +128,5 @@ module.exports = TreeViewFilter =
             @view.hide()
         else
             @show()
+        
+        

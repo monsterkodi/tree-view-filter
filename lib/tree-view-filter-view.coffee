@@ -14,7 +14,7 @@ class TreeViewFilterView extends View
     @content: ->
 
         @div class: 'tree-view-filter block', =>
-            @div class: 'tree-view-filter-container', =>
+            @div class: 'tree-view-filter-container tool-panel panel-bottom', =>
                 @subview 'editor', new TextEditorView(mini: true, placeholderText: 'Filter Pattern')
             @div class: 'tree-view-filter-clear', =>
                 @div class: 'tree-view-filter-clear-icon'
@@ -28,21 +28,24 @@ class TreeViewFilterView extends View
     focus: -> @editor.focus()
         
     show: -> 
-        if @treeView?.treeView?.element?
-            @treeView.treeView.element.appendChild @element
+        e = @treeView?.treeView?.element
+        if e? and @element.parentElement != e
+            e.appendChild @element
+            s = e.querySelector '.tree-view-scroller'
+            s.style['padding-bottom'] = '20px'
         super
     
     hide: ->
-        if @treeView?.treeView?.element?
-            @treeView.treeView.element.removeChild @element
+        e = @treeView?.treeView?.element
+        if e?
+            e.removeChild @element
+            s = e.querySelector '.tree-view-scroller'
+            s.style['padding-bottom'] = '0px'
         super
 
     serialize:  -> { visible: @isVisible() }
     getElement: -> @element
 
-    destroy: ->
+    destroy: -> 
+        @hide()
         @element.remove()
-        super
-
-        
-    

@@ -21,10 +21,6 @@ Also, the filter only applies to the currently expanded directories.
 
 Changes to the tree-view package which solve these issues have been submitted and are currently pending review.
 
-## TODO
-
-* nicer style (blend in with status bar)
-
 ## Credits
 
 * screencast generated with [dergachev/screengif](https://github.com/dergachev/screengif)

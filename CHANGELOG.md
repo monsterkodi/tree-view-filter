@@ -1,3 +1,5 @@
+* global filter
+* style fixes
 * readme updated
 * live update option
 * clear on escape key
