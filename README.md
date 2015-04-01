@@ -10,8 +10,7 @@ Press `alt-cmd-shift-f` or invoke `Tree View Filter:Show` to focus the filter pa
 enter your pattern and press Enter/Return to confirm.
 
 To restore the tree view to its unfiltered state:  
-either press `Escape` when the filter editor has focus  
-or click on the clear button to the right.
+either press `Escape` when the filter editor has focus or click on the `(x)` button to the right.
 
 ## Known issues
 
@@ -19,7 +18,7 @@ Currently, the filter only sets the display style of the file entries to 'none'.
 When navigating the tree view with the keyboard, the invisible items still get focus.
 Also, the filter only applies to the currently expanded directories. 
 
-Changes to the tree-view package which solve these issues have been submitted and are currently pending review.
+Changes to the [tree-view package](https://atom.io/packages/tree-view) which solve these issues have been [submitted](https://github.com/atom/tree-view/pull/414) and are currently pending review.
 
 ## Credits
 
