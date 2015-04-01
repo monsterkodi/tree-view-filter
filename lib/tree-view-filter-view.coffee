@@ -14,7 +14,7 @@ class TreeViewFilterView extends View
     @content: ->
 
         @div class: 'tree-view-filter block', =>
-            @div class: 'tree-view-filter-container', =>
+            @div class: 'tree-view-filter-container tool-panel panel-bottom', =>
                 @subview 'editor', new TextEditorView(mini: true, placeholderText: 'Filter Pattern')
             @div class: 'tree-view-filter-clear', =>
                 @div class: 'tree-view-filter-clear-icon'
