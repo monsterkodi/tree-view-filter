@@ -40,9 +40,4 @@ class TreeViewFilterView extends View
     serialize:  -> { visible: @isVisible() }
     getElement: -> @element
 
-    destroy: ->
-        @element.remove()
-        super
-
-        
-    
+    destroy: -> @element.remove()

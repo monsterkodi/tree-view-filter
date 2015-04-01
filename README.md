@@ -13,16 +13,9 @@ To restore the tree view to its unfiltered state:
 either press `Escape` when the filter editor has focus  
 or click on the clear button to the right.
 
-## known issues
-
-The filter only sets the display style of the file entries to 'none'. 
-When navigating the tree view with the keyboard, the invisible items still get focus.  
-I am not sure yet if this can be resolved without changing the tree-view package itself.
-
 ## todo
 
 * nicer style (blend in with status bar)
-* update filter when directory is expanded
 * specs
 
 ## credits
@@ -35,11 +28,5 @@ and the usual suspects
 * almost as good as coffee: [coffeescript](http://coffeescript.org/)
 * a truly hackable editor: [atom](https://atom.io/)
 * grunt, grunt, [grunt](http://gruntjs.com/)
-
-## warning
-
-This is my first Atom plugin, hacked together in an evening.  
-It probably won't break anything (e.g. delete all your code :)  
-but still: use at your own risk!
 
 [atom package](https://atom.io/packages/tree-view-filter)

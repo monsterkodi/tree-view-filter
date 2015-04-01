@@ -89,12 +89,13 @@ module.exports = TreeViewFilter =
             @clearFilter()
         
     deactivate: ->
-        # console.log 'deactivate'
+        @clearFilter()
         @subscriptions.dispose()
+        @treeViewService.removeFileNameFilterFunction @boundFilterFunction
+        @treeViewService = undefined
         @view.destroy()
 
     serialize: ->
-        # console.log 'serialize'
         treeViewFilterState: @view.serialize()
 
     show: ->
@@ -109,8 +110,8 @@ module.exports = TreeViewFilter =
             @show()
 
     consumeTreeViewService: (treeViewService) ->
-        # console.log 'consume', @
         @treeViewService = treeViewService
-        @treeViewService.addFileNameFilterFunction @isFileNameFiltered.bind(@)
+        @boundFilterFunction = @isFileNameFiltered.bind(@)
+        @treeViewService.addFileNameFilterFunction @boundFilterFunction
         
         
