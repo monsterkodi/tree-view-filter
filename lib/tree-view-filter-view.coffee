@@ -28,16 +28,25 @@ class TreeViewFilterView extends View
     focus: -> @editor.focus()
         
     show: -> 
-        if @treeView?.treeView?.element?
-            @treeView.treeView.element.appendChild @element
+        e = @treeView?.treeView?.element
+        if e? and @element.parentElement != e
+            e.appendChild @element
+            s = e.querySelector '.tree-view-scroller'
+            s.style['padding-bottom'] = '20px'
         super
     
     hide: ->
-        if @treeView?.treeView?.element?
-            @treeView.treeView.element.removeChild @element
+        e = @treeView?.treeView?.element
+        if e?
+            e.removeChild @element
+            s = e.querySelector '.tree-view-scroller'
+            s.style['padding-bottom'] = '0px'
+            s.removeChild @placeholder
         super
 
     serialize:  -> { visible: @isVisible() }
     getElement: -> @element
 
-    destroy: -> @element.remove()
+    destroy: -> 
+        @hide()
+        @element.remove()
