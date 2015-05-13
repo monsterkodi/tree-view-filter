@@ -6,7 +6,7 @@ Atom package which hides files in the tree view that don't match the provided pa
 
 ## Usage
 
-Press `alt-cmd-shift-f` or invoke `Tree View Filter:Show` to focus the filter pattern editor, 
+Press `ctrl-alt-shift-f` or invoke `Tree View Filter:Activate` to focus the filter pattern editor, 
 enter your pattern and press Enter/Return to confirm.
 
 To restore the tree view to its unfiltered state:  
