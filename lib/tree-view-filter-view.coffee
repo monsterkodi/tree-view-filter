@@ -10,7 +10,7 @@
 
 module.exports =
 class TreeViewFilterView extends View
-    
+
     @content: ->
 
         @div class: 'tree-view-filter block', =>
@@ -24,10 +24,9 @@ class TreeViewFilterView extends View
         super
         @clear = @element.querySelector '.tree-view-filter-clear'
         @clear.style.display = 'none'
-
-    focus: -> @editor.focus()
+        @active = false
         
-    show: -> 
+    show: ->
         e = @treeView?.treeView?.element
         if e? and @element.parentElement != e
             e.appendChild @element
@@ -37,13 +36,28 @@ class TreeViewFilterView extends View
     
     hide: ->
         e = @treeView?.treeView?.element
-        if e?
+        if e? and @element?.parentElement == e
             e.removeChild @element
             s = e.querySelector '.tree-view-scroller'
             s.style['padding-bottom'] = '0px'
         super
 
-    serialize:  -> { visible: @isVisible() }
+    activate: ->
+        @active = true
+        @show()
+
+    deactivate: ->
+        @active = false
+        @hide()
+
+    toggle: ->
+        if @active
+            @deactivate()
+        else
+            @activate()        
+            
+    focus:      -> @editor.focus()
+    serialize:  -> { active: @active }
     getElement: -> @element
 
     destroy: -> 

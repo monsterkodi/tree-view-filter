@@ -1,3 +1,5 @@
+* default shortcut changed to ctrl-alt-shift-f
+* activation issue fixed
 * style issue fixed
 * global filter
 * style fixes

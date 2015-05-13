@@ -1,8 +1,8 @@
 
 # https://atom.io/docs/latest/advanced/keymaps
 
-'atom-workspace':
-  'alt-cmd-shift-f': 'tree-view-filter:show'
+'body':
+  'ctrl-alt-shift-f': 'tree-view-filter:activate'
   
 '.tree-view-filter atom-text-editor[mini]':
   'escape': 'core:cancel'

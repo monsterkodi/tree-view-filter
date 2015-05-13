@@ -42,39 +42,41 @@ module.exports = TreeViewFilter =
             # hide or show the filter editor if the tree view is toggled
 
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view:toggle', =>
-                if @tree.treeView?.is(':visible')
-                    @view.hide()
-                else
+                if @tree.treeView?.element? and @view.active
                     @view.show()
+                else
+                    @view.hide()
 
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view:show', =>
-                @view.show()
+                if @view.active
+                    @view.show()
 
-            @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view-filter:show': => @show()
+            @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view-filter:activate': => @activateAndFocus()
             @subscriptions.add atom.commands.add 'atom-workspace', 'tree-view-filter:toggle': => @toggle()
             
             @subscriptions.add atom.config.onDidChange 'tree-view-filter.globalFilter', => @updateGlobalFilter()
 
             # show the filter editor if the tree-view is visible
             
-            if @tree.treeView and state.treeViewFilterState?.visible
-                @view.show()
+            if state.treeViewFilterState?.active
+                @view.activate()
 
     setFilterPattern: (patternText) ->
         @setFilterPatterns (p for p in patternText.split(' ') when p? and p.length)
                 
-    setFilterPatterns: (patterns) ->
+    setFilterPatterns: (patterns=[]) ->
         pats = patterns.concat @globalPatterns()
         
         @include = (p for p in pats when p[0] != '!')
         @exclude = (p.substring(1) for p in pats when p[0] == '!')
         
-        fileEntries = @tree.treeView.element.querySelectorAll '.file.entry.list-item'
-        for fileEntry in fileEntries
+        fileEntries = @tree.treeView?.element?.querySelectorAll '.file.entry.list-item'
+        if fileEntries?
+            for fileEntry in fileEntries
 
-            span = fileEntry.querySelector 'span.name'
-            fileName = span.getAttribute 'data-name'                
-            fileEntry.style.display = @isFileNameFiltered(fileName) and 'none' or 'inherit'
+                span = fileEntry.querySelector 'span.name'
+                fileName = span.getAttribute 'data-name'                
+                fileEntry.style.display = @isFileNameFiltered(fileName) and 'none' or 'inherit'
 
         @showClearButton patterns.length > 0
 
@@ -118,15 +120,15 @@ module.exports = TreeViewFilter =
     serialize: ->
         treeViewFilterState: @view.serialize()
 
-    show: ->
-        @view.show()
+    activateAndFocus: ->
+        @view.activate()
         @view.focus()
 
     toggle: ->
-        if @view.isVisible()
+        if @view.active
             @clearFilter()
-            @view.hide()
+            @view.deactivate()
         else
-            @show()
+            @activateAndFocus()
         
         

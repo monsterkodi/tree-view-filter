@@ -8,10 +8,6 @@
     {
       'label': 'Activate tree-view-filter'
       'command': 'tree-view-filter:activate'
-    },
-    {
-      'label': 'Focus tree-view-filter'
-      'command': 'tree-view-filter:focus'
     }
   ]
 'menu': [
