@@ -22,6 +22,7 @@ class TreeViewFilterView extends View
     constructor: (treeView) ->
         @treeView = treeView
         super
+        @editor.element.className += ' filter-editor'
         @clear = @element.querySelector '.tree-view-filter-clear'
         @clear.style.display = 'none'
         @active = false
