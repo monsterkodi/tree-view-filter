@@ -1,3 +1,4 @@
+* deprecations fixed
 * default shortcut changed to ctrl-alt-shift-f
 * activation issue fixed
 * style issue fixed
