@@ -1,3 +1,4 @@
+* fixed isse #6 (modified treeview DOM)
 * font size issue #3 fixed
 * deprecations fixed
 * default shortcut changed to ctrl-alt-shift-f

@@ -75,8 +75,9 @@ module.exports = TreeViewFilter =
             for fileEntry in fileEntries
 
                 span = fileEntry.querySelector 'span.name'
-                fileName = span.getAttribute 'data-name'                
-                fileEntry.style.display = @isFileNameFiltered(fileName) and 'none' or 'inherit'
+                fileName = span.getAttribute 'data-name'     
+                if fileName?           
+                    fileEntry.style.display = @isFileNameFiltered(fileName) and 'none' or 'inherit'
 
         @showClearButton patterns.length > 0
 

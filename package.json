@@ -1,25 +1,25 @@
 {
-  "name": "tree-view-filter",
-  "main": "./lib/tree-view-filter",
-  "version": "0.3.7",
-  "description": "Limits files in the tree view to those matching certain patterns",
-  "repository": "https://github.com/monsterkodi/tree-view-filter",
-  "license": "MIT",
-  "engines": {
-    "atom": ">=0.174.0 <2.0.0"
-  },
-  "dependencies": {
-    "atom-space-pen-views": "^2.0.4",
-    "atom-utils": ">=0.5.0",
-    "font-awesome": "^4.3.0",
-    "minimatch": "^2.0.4"
-  },
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-bumpup": "^0.6.2",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-open": "^0.2.3",
-    "grunt-pepper": "^0.4.7",
-    "grunt-shell": "^1.1.2"
-  }
+    "name": "tree-view-filter",
+    "main": "./lib/tree-view-filter",
+    "version": "0.3.8",
+    "description": "Limits files in the tree view to those matching certain patterns",
+    "repository": "https://github.com/monsterkodi/tree-view-filter",
+    "license": "MIT",
+    "engines": {
+        "atom": ">=0.174.0 <2.0.0"
+    },
+    "dependencies": {
+        "atom-space-pen-views": "^2.0.4",
+        "atom-utils": ">=0.5.0",
+        "font-awesome": "^4.3.0",
+        "minimatch": "^2.0.4"
+    },
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "grunt-bumpup": "^0.6.2",
+        "grunt-contrib-watch": "^0.6.1",
+        "grunt-open": "^0.2.3",
+        "grunt-pepper": "^0.4.7",
+        "grunt-shell": "^1.1.2"
+    }
 }
