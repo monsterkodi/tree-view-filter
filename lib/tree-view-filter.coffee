@@ -19,10 +19,17 @@ module.exports = TreeViewFilter =
             type: 'boolean'
             default: false
             title: 'Live Update: update the tree view while entering patterns'
+            order: 2
         globalFilter:
             type: 'string'
             default: ""
             title: 'Global Filter: pattern that is used while the package is active'
+            order: 1
+        fuzzySearch:
+            type: 'boolean'
+            default: false
+            title: 'Fuzzy search: always surround your search terms with *query*'
+            order: 3
 
     activate: (state) ->
                 
@@ -100,7 +107,17 @@ module.exports = TreeViewFilter =
     showClearButton: (visible) -> @view.clear.style.display = visible and 'inherit' or 'none'
 
     clearFilter:     -> @setFilterPatterns []
-    editorConfirmed: -> @setFilterPattern @view.editor.getText()
+    editorConfirmed: ->
+        if atom.config.get('tree-view-filter.fuzzySearch')
+            _searchTerm = @view.editor.getText()
+            if _searchTerm.substr(0,1) != '*'
+                _searchTerm = '*' + _searchTerm
+            if _searchTerm.substr(_searchTerm.length-1, 1) != '*'
+                _searchTerm = _searchTerm + '*'
+            @setFilterPattern _searchTerm
+        else
+            @setFilterPattern @view.editor.getText()
+            
     editorCanceled:  -> @view.editor.setText ""; @clearFilter()
     editorChanged:   -> 
         if atom.config.get('tree-view-filter.liveUpdate')
