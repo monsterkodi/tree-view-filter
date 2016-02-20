@@ -30,6 +30,11 @@ module.exports = TreeViewFilter =
             default: false
             title: 'Fuzzy search: always surround your search terms with *query*'
             order: 3
+        caseInsensitive:
+            type: 'boolean'
+            default: false
+            title: 'Case insensitive: make searches case insensitive'
+            order: 4
 
     activate: (state) ->
                 
@@ -92,15 +97,18 @@ module.exports = TreeViewFilter =
     globalPatterns: () -> (p for p in atom.config.get('tree-view-filter.globalFilter').split(' ') when p? and p.length)
         
     isFileNameFiltered: (filePath) ->
+        matchOptions = {}
+        if atom.config.get('tree-view-filter.caseInsensitive')
+            matchOptions['nocase'] = true
         if @exclude?
             for pattern in @exclude
-                if minimatch(filePath, pattern)
+                if minimatch(filePath, pattern, matchOptions)
                     return true
         if not @include? or @include.length == 0
             return false
         matches = false
         for pattern in @include
-            if minimatch(filePath, pattern)
+            if minimatch(filePath, pattern, matchOptions)
                 matches = true
         not matches
         
