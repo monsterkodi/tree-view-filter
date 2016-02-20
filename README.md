@@ -24,6 +24,7 @@ Changes to the [tree-view package](https://atom.io/packages/tree-view) which sol
 
 * screencast generated with [dergachev/screengif](https://github.com/dergachev/screengif)
 * file pattern matching by [minimatch](https://www.npmjs.com/package/minimatch)
+* case insensitive and fuzzy option by [ruleb](https://github.com/ruleb)
 
 and the usual suspects
 

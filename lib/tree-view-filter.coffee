@@ -82,6 +82,14 @@ module.exports = TreeViewFilter =
         @include = (p for p in pats when p[0] != '!')
         @exclude = (p.substring(1) for p in pats when p[0] == '!')
         
+        if atom.config.get('tree-view-filter.fuzzySearch')
+            @include = @include.map (p) -> 
+                if p.substr(0,1) != '*'
+                    p = '*' + p
+                if p.substr(p.length-1, 1) != '*'
+                    p = p + '*'
+                p
+        
         fileEntries = @tree.treeView?.element?.querySelectorAll '.file.entry.list-item'
         if fileEntries?
             for fileEntry in fileEntries
@@ -115,16 +123,7 @@ module.exports = TreeViewFilter =
     showClearButton: (visible) -> @view.clear.style.display = visible and 'inherit' or 'none'
 
     clearFilter:     -> @setFilterPatterns []
-    editorConfirmed: ->
-        if atom.config.get('tree-view-filter.fuzzySearch')
-            _searchTerm = @view.editor.getText()
-            if _searchTerm.substr(0,1) != '*'
-                _searchTerm = '*' + _searchTerm
-            if _searchTerm.substr(_searchTerm.length-1, 1) != '*'
-                _searchTerm = _searchTerm + '*'
-            @setFilterPattern _searchTerm
-        else
-            @setFilterPattern @view.editor.getText()
+    editorConfirmed: -> @setFilterPattern @view.editor.getText()
             
     editorCanceled:  -> @view.editor.setText ""; @clearFilter()
     editorChanged:   -> 
