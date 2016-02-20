@@ -19,10 +19,22 @@ module.exports = TreeViewFilter =
             type: 'boolean'
             default: false
             title: 'Live Update: update the tree view while entering patterns'
+            order: 2
         globalFilter:
             type: 'string'
             default: ""
             title: 'Global Filter: pattern that is used while the package is active'
+            order: 1
+        fuzzySearch:
+            type: 'boolean'
+            default: false
+            title: 'Fuzzy search: always surround your search terms with *query*'
+            order: 3
+        caseInsensitive:
+            type: 'boolean'
+            default: false
+            title: 'Case insensitive: make searches case insensitive'
+            order: 4
 
     activate: (state) ->
                 
@@ -85,22 +97,35 @@ module.exports = TreeViewFilter =
     globalPatterns: () -> (p for p in atom.config.get('tree-view-filter.globalFilter').split(' ') when p? and p.length)
         
     isFileNameFiltered: (filePath) ->
+        matchOptions = {}
+        if atom.config.get('tree-view-filter.caseInsensitive')
+            matchOptions['nocase'] = true
         if @exclude?
             for pattern in @exclude
-                if minimatch(filePath, pattern)
+                if minimatch(filePath, pattern, matchOptions)
                     return true
         if not @include? or @include.length == 0
             return false
         matches = false
         for pattern in @include
-            if minimatch(filePath, pattern)
+            if minimatch(filePath, pattern, matchOptions)
                 matches = true
         not matches
         
     showClearButton: (visible) -> @view.clear.style.display = visible and 'inherit' or 'none'
 
     clearFilter:     -> @setFilterPatterns []
-    editorConfirmed: -> @setFilterPattern @view.editor.getText()
+    editorConfirmed: ->
+        if atom.config.get('tree-view-filter.fuzzySearch')
+            _searchTerm = @view.editor.getText()
+            if _searchTerm.substr(0,1) != '*'
+                _searchTerm = '*' + _searchTerm
+            if _searchTerm.substr(_searchTerm.length-1, 1) != '*'
+                _searchTerm = _searchTerm + '*'
+            @setFilterPattern _searchTerm
+        else
+            @setFilterPattern @view.editor.getText()
+            
     editorCanceled:  -> @view.editor.setText ""; @clearFilter()
     editorChanged:   -> 
         if atom.config.get('tree-view-filter.liveUpdate')
