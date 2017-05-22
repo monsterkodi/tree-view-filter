@@ -22,25 +22,22 @@ class TreeViewFilterView extends View
     constructor: (treeView) ->
         @treeView = treeView
         super
+        @element.style.marginBottom = '0'
         @editor.element.className += ' filter-editor'
         @clear = @element.querySelector '.tree-view-filter-clear'
         @clear.style.display = 'none'
         @active = false
         
     show: ->
-        e = @treeView?.treeView?.element
+        e = @treeView?.treeView?.element.parentNode.parentNode
         if e? and @element.parentElement != e
             e.appendChild @element
-            s = e.querySelector '.tree-view-scroller'
-            s?.style['padding-bottom'] = '20px'
         super
     
     hide: ->
-        e = @treeView?.treeView?.element
+        e = @treeView?.treeView?.element.parentNode.parentNode
         if e? and @element?.parentElement == e
             e.removeChild @element
-            s = e.querySelector '.tree-view-scroller'
-            s?.style['padding-bottom'] = '0px'
         super
 
     activate: ->

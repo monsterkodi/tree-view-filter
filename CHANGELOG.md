@@ -1,5 +1,7 @@
-* fixed isse #9 (can't read property 'style' of null)
-* fixed isse #6 (modified treeview DOM)
+* fixed a display issue (filter view scrolling with treeview items)
+* dependencies updated
+* fixed issue #9 (can't read property 'style' of null)
+* fixed issue #6 (modified treeview DOM)
 * font size issue #3 fixed
 * deprecations fixed
 * default shortcut changed to ctrl-alt-shift-f
