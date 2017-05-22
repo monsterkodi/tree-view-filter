@@ -1,3 +1,4 @@
+* fixed isse #9 (can't read property 'style' of null)
 * fixed isse #6 (modified treeview DOM)
 * font size issue #3 fixed
 * deprecations fixed

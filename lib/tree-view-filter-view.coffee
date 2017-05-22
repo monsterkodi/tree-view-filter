@@ -32,7 +32,7 @@ class TreeViewFilterView extends View
         if e? and @element.parentElement != e
             e.appendChild @element
             s = e.querySelector '.tree-view-scroller'
-            s.style['padding-bottom'] = '20px'
+            s?.style['padding-bottom'] = '20px'
         super
     
     hide: ->
@@ -40,7 +40,7 @@ class TreeViewFilterView extends View
         if e? and @element?.parentElement == e
             e.removeChild @element
             s = e.querySelector '.tree-view-scroller'
-            s.style['padding-bottom'] = '0px'
+            s?.style['padding-bottom'] = '0px'
         super
 
     activate: ->
