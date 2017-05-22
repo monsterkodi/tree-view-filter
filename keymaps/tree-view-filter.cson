@@ -3,6 +3,11 @@
 
 'body':
   'ctrl-alt-shift-f': 'tree-view-filter:activate'
-  
+  'alt-cmd-shift-f': 'tree-view-filter:toggle'
+
+'atom-text-editor':
+  'ctrl-alt-shift-f': 'tree-view-filter:activate'
+  'alt-cmd-shift-f': 'tree-view-filter:toggle'
+      
 '.tree-view-filter atom-text-editor[mini]':
   'escape': 'core:cancel'

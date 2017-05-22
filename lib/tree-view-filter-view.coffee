@@ -27,18 +27,29 @@ class TreeViewFilterView extends View
         @clear = @element.querySelector '.tree-view-filter-clear'
         @clear.style.display = 'none'
         @active = false
+        @observer = null
         
     show: ->
         e = @treeView?.treeView?.element.parentNode.parentNode
         if e? and @element.parentElement != e
             e.appendChild @element
+        if not @observer?
+            @observer = new MutationObserver @onTreeChanged
+            @observer.observe @treeView?.treeView?.element, childList:true, subtree:true
         super
     
     hide: ->
         e = @treeView?.treeView?.element.parentNode.parentNode
         if e? and @element?.parentElement == e
             e.removeChild @element
+        if @observer?
+            @observer.disconnect()
+            delete @observer
         super
+
+    onTreeChanged: =>
+        TreeViewFilter = require './tree-view-filter'
+        TreeViewFilter.editorConfirmed()
 
     activate: ->
         @active = true

@@ -12,6 +12,7 @@ minimatch             = require 'minimatch'
 ###
 
 module.exports = TreeViewFilter =
+
     view: null
     subscriptions: null
     config:
