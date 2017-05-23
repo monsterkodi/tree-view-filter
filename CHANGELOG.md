@@ -1,3 +1,4 @@
+- hook into commands to jump over hidden items
 - observe dom changes to re-apply filter
 - added shortcut for toggle
 - fixed a display issue (filter view scrolling with treeview items)

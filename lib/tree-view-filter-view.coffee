@@ -20,6 +20,7 @@ class TreeViewFilterView extends View
                 @div class: 'tree-view-filter-clear-icon'
 
     constructor: (treeView) ->
+        
         @treeView = treeView
         super
         @element.style.marginBottom = '0'
@@ -30,26 +31,57 @@ class TreeViewFilterView extends View
         @observer = null
         
     show: ->
+        
         e = @treeView?.treeView?.element.parentNode.parentNode
+        
         if e? and @element.parentElement != e
             e.appendChild @element
+            
         if not @observer?
             @observer = new MutationObserver @onTreeChanged
-            @observer.observe @treeView?.treeView?.element, childList:true, subtree:true
+            @observer.observe @treeView?.treeView?.element, childList:true, subtree:true, attributes:true
+            
+        if not @upDownCommands?
+            console.log 'commands'
+            @upDownCommands = atom.commands.add @treeView?.treeView?.element,
+                'core:move-down':      => @lastDirection = 'down'
+                'core:page-down':      => @lastDirection = 'down'
+                'core:move-up':        => @lastDirection = 'up'
+                'core:page-up':        => @lastDirection = 'up'
+                'core:move-to-bottom': => @lastDirection = 'up'
         super
     
     hide: ->
+        
         e = @treeView?.treeView?.element.parentNode.parentNode
+        
         if e? and @element?.parentElement == e
             e.removeChild @element
+            
         if @observer?
             @observer.disconnect()
             delete @observer
+            
+        if @upDownCommands?
+            @upDownCommands.dispose()
+            delete @upDownCommands
+            
         super
-
-    onTreeChanged: =>
-        TreeViewFilter = require './tree-view-filter'
-        TreeViewFilter.editorConfirmed()
+        
+    onTreeChanged: (mutations) =>
+        
+        for mutation in mutations  # re-filter list
+            if mutation.addedNodes.length   
+                TreeViewFilter = require './tree-view-filter'
+                TreeViewFilter.editorConfirmed()
+                return
+                
+        for mutation in mutations  # jump over hidden items
+            if mutation.target.className.endsWith 'selected'
+                if mutation.target.style.display == 'none' 
+                    treeViewElement = @treeView?.treeView?.element
+                    atom.commands.dispatch @treeView?.treeView?.element, @lastDirection == 'down' and 'core:move-down' or 'core:move-up'
+                    return
 
     activate: ->
         @active = true
