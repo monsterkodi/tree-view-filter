@@ -2,10 +2,7 @@
 
 Limits files in the tree-view to those matching certain patterns.
 
-<!--
 ![screencast](https://raw.githubusercontent.com/monsterkodi/tree-view-filter/master/img/screencast.gif)
--->
-![screencast](./img/screencast.gif)
 
 ## Usage
 
