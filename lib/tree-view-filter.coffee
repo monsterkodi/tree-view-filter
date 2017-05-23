@@ -29,7 +29,7 @@ module.exports = TreeViewFilter =
         fuzzySearch:
             type: 'boolean'
             default: false
-            title: 'Fuzzy search: always surround your search terms with *query*'
+            title: 'Fuzzy search: a b -> *a* *b*'
             order: 3
         caseInsensitive:
             type: 'boolean'

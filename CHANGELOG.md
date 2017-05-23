@@ -1,3 +1,4 @@
+- readme and gif updated
 - hook into commands to jump over hidden items
 - observe dom changes to re-apply filter
 - added shortcut for toggle
