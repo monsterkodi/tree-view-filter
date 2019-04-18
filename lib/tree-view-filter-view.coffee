@@ -32,7 +32,7 @@ class TreeViewFilterView extends View
         
     show: ->
         
-        e = @treeView?.treeView?.element.parentNode.parentNode
+        e = @treeView?.treeView?.element?.parentNode?.parentNode
         
         if e? and @element.parentElement != e
             e.appendChild @element
@@ -53,7 +53,7 @@ class TreeViewFilterView extends View
     
     hide: ->
         
-        e = @treeView?.treeView?.element.parentNode.parentNode
+        e = @treeView?.treeView?.element?.parentNode?.parentNode
         
         if e? and @element?.parentElement == e
             e.removeChild @element
